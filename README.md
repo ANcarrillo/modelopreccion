@@ -78,3 +78,21 @@ Borre luego el modelo de prueba de `models/` para no confundirlo con el real.
 ## Variables sensibles
 
 `genero`, `victima_conflicto`, `pertenece_etnia` y `discapacidad` **no** se usan por defecto. Para agregar alguna, edite `VARIABLES_CATEGORICAS` / `VARIABLES_NUMERICAS` en `src/config.py` (y en ese caso añádala también a la vista SQL y al backend).
+
+## Entrenar con los datos del servidor y publicar el modelo
+
+Para entrenar en este PC con los datos de la base de datos **publicada** (Azure) y que el modelo aparezca en la web publicada:
+
+```powershell
+cd ml
+.\entrenar_servidor.ps1 -Publicar
+```
+
+1. Abre un túnel SSH (`localhost:5434` → PostgreSQL del servidor). La base de datos no queda expuesta a internet.
+2. Entrena con `python -m src.entrenar` (acepta las mismas opciones, por ejemplo `.\entrenar_servidor.ps1 --metrica recall`).
+3. Con `-Publicar` copia el `.pkl` y el `.json` al servidor (`~/app/ml/models`).
+4. En la web: **Modelo ML → Registrar y activar**. No hay que reiniciar nada.
+
+Para publicar un modelo ya entrenado: `.\publicar_modelo.ps1` (el más reciente) o `.\publicar_modelo.ps1 modelo_desercion_AAAAMMDD_HHMMSS`.
+
+La IP del servidor y la ruta de la clave SSH se configuran en `ml/servidor.ps1`. Las versiones de scikit-learn / XGBoost / LightGBM del `.venv` deben ser las mismas de `backend/requirements.lock.txt`; si no, el modelo no carga en el servidor.
