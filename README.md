@@ -16,6 +16,28 @@ Proyecto independiente que entrena, compara y evalúa los modelos. El backend so
 | 5.2 Accuracy, Precision, Recall, F1, AUC-ROC | `src/evaluar.py` |
 | 5.3 SHAP y matriz de confusión | `src/evaluar.py` → `reports/<versión>/` |
 
+## Repositorios del proyecto
+
+El sistema está dividido en cuatro repositorios:
+
+| Parte | Repositorio | Carpeta sugerida |
+|---|---|---|
+| Backend (API FastAPI) | https://github.com/ANcarrillo/backprediccion | `backend` |
+| Frontend (PWA React) | https://github.com/ANcarrillo/frontprediccion | `frontend` |
+| Modelo de ML | https://github.com/ANcarrillo/modelopreccion | `ml` |
+| Base de datos (PostgreSQL) | https://github.com/ANcarrillo/basedatosprediccion | `database` |
+
+Clónelos **uno al lado del otro con esos nombres de carpeta**; así funcionan las rutas entre partes (por ejemplo, el backend lee los modelos desde `../ml/models`):
+
+```powershell
+git clone https://github.com/ANcarrillo/backprediccion.git backend
+git clone https://github.com/ANcarrillo/frontprediccion.git frontend
+git clone https://github.com/ANcarrillo/modelopreccion.git ml
+git clone https://github.com/ANcarrillo/basedatosprediccion.git database
+```
+
+El despliegue completo con Docker (`docker-compose.yml`, Caddy, guías de Azure) está en el repositorio integrador https://github.com/ANcarrillo/GestionConocimineto.
+
 ## Instalación (una sola vez)
 
 Requiere Python 3.11 o superior.
